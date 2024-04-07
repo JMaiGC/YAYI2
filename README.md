@@ -348,6 +348,20 @@ deepspeed --hostfile config/hostfile \
 bash scripts/start.sh
 ```
 
+请注意，如需使用 ChatML 模版进行指令微调，可将命令中的 `--module training.trainer_yayi2` 修改为 `--module training.trainer_chatml`；如需或自定义 Chat 模版，可修改 [trainer_chatml.py](https://github.com/wenge-research/YAYI2/blob/38b1b3611dbb992eea2f1e9a33523db3f1423a14/training/trainer_chatml.py#L70) 的 Chat 模版中 system、user、assistant 三种角色的 special token 定义。以下是 ChatML 模版示例，如果训练时使用该模版或自定义模版，推理时也需要保持一致。
+
+```
+<|im_start|>system
+You are a helpful and harmless assistant named YAYI.<|im_end|>
+<|im_start|>user
+Hello!<|im_end|>
+<|im_start|>assistant
+Hello! How can I assist you today?<|im_end|>
+<|im_start|>user
+1+1=<|im_end|>
+<|im_start|>assistant
+1+1 equals 2.<|im_end|>
+```
 
 ### LoRA 微调
 
